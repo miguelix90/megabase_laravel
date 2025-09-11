@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
+use App\Models\Cuestionario;
 
 Route::get('/', function () {
     return view('welcome');
@@ -22,6 +23,14 @@ Route::middleware(['auth'])->group(function () {
 // Rutas de gestión de usuarios (solo para superadmin)
 Route::middleware(['auth', 'role:superadmin'])->group(function () {
     Route::view('users', 'users')->name('users.index');
+});
+
+// Rutas de gestión de cuestionarios (para superadmin y admin)
+Route::middleware(['auth', 'role:superadmin|admin'])->group(function () {
+    Route::view('cuestionarios', 'cuestionarios')->name('cuestionarios.index');
+    Route::get('cuestionarios/{cuestionario}/variables', function ($cuestionario) {
+        return view('variables', ['cuestionarioId' => $cuestionario]);
+    })->name('variables.index');
 });
 
 require __DIR__.'/auth.php';

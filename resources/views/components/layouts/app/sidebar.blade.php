@@ -18,6 +18,10 @@
                     @role('superadmin')
                         <flux:navlist.item icon="users" :href="route('users.index')" :current="request()->routeIs('users.*')" wire:navigate>{{ __('Usuarios') }}</flux:navlist.item>
                     @endrole
+
+                    @role('superadmin|admin')
+                        <flux:navlist.item icon="clipboard-document-list" :href="route('cuestionarios.index')" :current="request()->routeIs('cuestionarios.*') || request()->routeIs('variables.*')" wire:navigate>{{ __('Gestión Cuestionarios') }}</flux:navlist.item>
+                    @endrole
                 </flux:navlist.group>
 
 

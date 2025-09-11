@@ -14,8 +14,20 @@ class Cuestionario extends Model
         'nombre',
         'nombre_corto',
         'descripcion',
-        'tabla',
     ];
+
+    /**
+     * Generar automáticamente el nombre de la tabla
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($cuestionario) {
+            $cuestionario->tabla = $cuestionario->nombre_corto . '_data';
+        });
+
+    }
 
     /**
      * Relación uno a muchos con variables
