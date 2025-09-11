@@ -19,4 +19,9 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
 });
 
+// Rutas de gestión de usuarios (solo para superadmin)
+Route::middleware(['auth', 'role:superadmin'])->group(function () {
+    Route::view('users', 'users')->name('users.index');
+});
+
 require __DIR__.'/auth.php';
